@@ -1,7 +1,7 @@
 <?php
 
-require_once './vendor/autoload.php';
-require_once './helper.php';
+require_once  __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/helper.php';
 
 
 class Main
@@ -20,7 +20,7 @@ class Main
     public function __construct(array $args)
     {
         try {
-            $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+            $dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../');
             $dotenv->load();
             $dotenv->required('SERPAPI_API_KEY')->notEmpty();
 
@@ -39,7 +39,7 @@ class Main
                 $this->keywords = [
                     'Automattia',   // Automattic
                     'WordPresq',    // WordPress
-                    /*'Jetpaci',      // Jetpack
+                    'Jetpaci',      // Jetpack
                     'WooCommercc',  // WooCommerce
                     'fortinitee',   // fortnite
                     'Acxer',        // Acxer it should be Acer the computer brand but Google is not fixing it.
@@ -51,10 +51,10 @@ class Main
                     'Hundai',       // hyundai
                     'Mitsubisi',    // mitsubishi
                     'Nesquick',     // Nesquik
-                    'hugo bos',     // hugo boss*/
+                    'hugo bos',     // hugo boss
                 ];
 
-                echo "[\n\t'" . implode("',\n\t'", $this->keywords) . "'\n]\n";
+                echo "[\n\t'" . implode("',\n\t'", $this->keywords) . "'\n]\n\n";
             }
         } catch (\Dotenv\Exception\InvalidPathException) {
             echo 'Could not load .env file.';

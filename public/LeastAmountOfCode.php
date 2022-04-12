@@ -1,11 +1,11 @@
 <?php
 
 if (php_sapi_name()!='cli') {
-    echo 'You can only use the script on CLI';
-    exit();
+    require_once __DIR__ . "/helper.php";
+    ob_start(fn ($buffer) =>prepareString($buffer));
 }
 
-$envPath = __DIR__.'/.env';
+$envPath = __DIR__ . '/../.env';
 
 if (!file_exists($envPath)) {
     echo '.env File not found -> '.$envPath;
@@ -49,8 +49,13 @@ $keywords = [
     'hugo bos',     // hugo boss
 ];
 
-if ($argc>1) {
+if (isset($argc) && $argc > 1) {
     $keywords = array_splice($argv, 1);
+}
+
+if (isset($_GET['keywords'])) {
+    $keywordsArguments = $_GET['keywords'];
+    $keywords = is_array($keywordsArguments) ? $keywordsArguments : [$keywords];
 }
 
 echo "Running...\n\n";
